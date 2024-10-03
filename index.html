@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400..700&display=swap" rel="stylesheet">
+    <title>Resume - Ivan Malyarevich</title>
+    <style>
+        :root {
+            --main-dark-color: rgba(46, 60, 78, 1);
+            --main-dark-color-transparent-10: rgba(46, 60, 78, 0.1);
+            --main-light-color: rgba(256, 256, 256, 1);
+        }
+        @media (max-width: 38.75rem) {
+            .contact-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .primary-skills{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .skill-item{
+                text-align: center;
+            }
+            .secondary-skills {
+                display: flex;
+                width: 20rem;
+                flex-wrap: wrap; /* Позволяет элементам переходить на новую строку */
+                justify-content: center; /* Распределяет элементы равномерно */
+            }
+        }
+
+        body {
+            font-family: "Edu SA Beginner", cursive;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+            color: var(--main-dark-color);
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width:  46.25rem;
+            margin: 0 auto;
+            border: 1px solid var(--main-dark-color);
+        }
+        .page{
+            padding: 1.5rem;
+        }
+
+        h1 {
+            display: flex;
+            justify-content: center;
+            font-size: 2.25rem;
+            margin-bottom: .3125rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            font-size: .875rem;
+            margin-top: 1rem;
+            margin-bottom: .875rem;
+            border-bottom: 1px solid var(--main-dark-color);
+            padding-bottom: .9375rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-top: .875rem;
+            margin-bottom: .9375rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-bottom: .125rem solid var(--main-dark-color);
+            padding-bottom: .3125rem;
+        }
+
+        .job-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .company {
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .date-location {
+            font-size: .875rem;
+            color: var(--main-dark-color);
+            float: right;
+        }
+
+        .job-description {
+            margin-top: .625rem;
+            margin-bottom: .875rem;
+        }
+
+        .education, .skills {
+            margin-top: .625rem;
+        }
+
+        hr {
+            border: 0;
+            height: .0625rem;
+            background: var(--main-dark-color);
+            margin: .125rem 0;
+        }
+
+        .icon {
+            margin: 0 .3125rem;
+            color: var(--main-dark-color);
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            margin-right: .625rem;
+            display: inline-block;
+        }
+
+        .secondary-skill {
+            font-size: 0.5rem;
+            margin-top: 0.5rem;
+            margin-left: .625rem;
+        }
+        #pdfButton {
+            font-size: 0.8rem;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            margin-top: 0;
+            padding: .3rem .3rem;
+            background-color: var(--main-light-color);
+            color: var(--main-dark-color);
+            border: .05rem solid var(--main-light-color);
+            cursor: pointer;
+            border-radius: .3rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #pdfButton:hover {
+            background-color: var(--main-dark-color-transparent-10);
+            border: .05rem solid var(--main-light-color);
+            color: var(--main-dark-color);
+        }
+
+        #pdfButton:active{
+            background-color: var(--main-dark-color-transparent-10);
+            border: .05rem solid var(--main-dark-color);
+            color: var(--main-dark-color);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container" >
+    <div class="page" id="pdfContent">
+        <h1>Ivan Malyarevich</h1>
+        <div class="contact-info">
+            <span class="icon"><i class="fa-solid fa-map-location-dot fa-sm"></i></span>
+            Austin, TX, USA
+            <span class="icon"><i class="fa-regular fa-envelope fa-sm"></i></span>
+            ivanmalyarevich@gmail.com
+            <span class="icon"><i class="fa-solid fa-phone fa-sm"></i></span>
+            (512) 736-7618
+            <span class="icon"> <i class="fa-brands fa-linkedin fa-sm"></i></span>
+            linkedin.com/in/ivan-malyarevich
+        </div>
+
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+            <div class="job-title">Software Engineer</div>
+            <div class="company">TBI Bank<span class="date-location">2021 – Present</span></div>
+            <div class="job-description">
+                <span> • Enhanced operational efficiency by 35% through the initiation of a new project using Angular, collaborating with both the development team and business stakeholders.</span>
+                <br>
+                <span> • Reduced user complaints by nearly half, achieving a 40% decrease by swiftly implementing essential changes in the ongoing project.</span>
+                <br>
+                <span> • Cut debugging time down to 75% of its previous length by conducting thorough code reviews, ensuring adherence to high-quality standards.</span>
+                <br>
+                <span> • Mentored a junior developer, accelerating the onboarding process by 50%, which resulted in a noticeable increase in team productivity and improved project delivery timelines by a third.</span>
+                <br>
+                <span> • Integrated critical components that led to a 20% boost in overall project performance.</span>
+            </div>
+        </div>
+        <div class="job">
+            <div class="job-title">Software Engineer</div>
+            <div class="company">State-Owned Enterprise<span class="date-location">2020 – 2021</span></div>
+            <div class="job-description">
+                <span> • Boosted client acquisition rates by a third, identifying and resolving barriers for new clients through collaboration with department heads.</span>
+                <br>
+                <span> • Designed an online application form, speeding up submissions by 25% and enabling a smoother user experience.</span>
+                <br>
+                <span> • Improved client satisfaction by 40% by enhancing accessibility and user experience.</span>
+                <br>
+                <span> • Migrated the educational center's database to a web application, resulting in a 50% increase in data management efficiency.</span>
+                <br>
+                <span> • Developed a user-friendly web interface that significantly decreased data retrieval times by two-thirds.</span>
+            </div>
+        </div>
+        <div class="job">
+            <div class="job-title">Computer Science Instructor</div>
+            <div class="company">Government Institution<span class="date-location">2019</span></div>
+            <div class="job-description">
+                <span> • Sparked a 70% increase in student interest in IT by integrating real-world examples and hands-on exercises, which improved class participation by 40%.</span>
+                <br>
+                <span> • Created personalized learning plans, enabling 90% of students with limited IT experience to excel in the course.</span>
+                <br>
+                <span> • Fostered inclusive learning for a small percentage of students with diverse abilities, ensuring adaptation of teaching methods that led to a more engaging classroom environment for everyone.</span>
+                <br>
+                <span> • Recognized for effective teaching, receiving 95% positive feedback from students and increasing course enrollment by a third.</span>
+            </div>
+        </div>
+
+        <div class="section-title">Education</div>
+        <div class="education">
+            <div class="education-title">
+                <strong>Master's Degree</strong>
+            </div>
+            <div class="education-description">
+                Software Engineering · 2021
+            </div>
+        </div>
+        <div class="education">
+            <div class="education-title">
+                <strong>Master's Degree</strong>
+            </div>
+            <div class="education-description">
+                Mechanical Engineering · 2020
+            </div>
+        </div>
+        <div class="section-title">Skills</div>
+        <div class="skills">
+            <div class="primary-skills">
+                <span class="skill-item">Angular</span>
+                <span class="skill-item">TypeScript</span>
+                <span class="skill-item">RxJS</span>
+                <span class="skill-item">Angular Material</span>
+                <span class="skill-item">RESTful APIs</span>
+            </div>
+            <div class="secondary-skills">
+                <span class="skill-item secondary-skill">NgRx</span>
+                <span class="skill-item secondary-skill">HTML</span>
+                <span class="skill-item secondary-skill">CSS</span>
+                <span class="skill-item secondary-skill">Unit Testing (Jasmine/Karma)</span>
+                <span class="skill-item secondary-skill">Git</span>
+                <span class="skill-item secondary-skill">CI/CD</span>
+                <span class="skill-item secondary-skill">Docker</span>
+                <span class="skill-item secondary-skill">MVVM</span>
+                <span class="skill-item secondary-skill">MVC</span>
+                <span class="skill-item secondary-skill">SOLID</span>
+                <span class="skill-item secondary-skill">DRY</span>
+                <span class="skill-item secondary-skill">UX/UI</span>
+            </div>
+        </div>
+        <button id="pdfButton" onclick="generatePDF()">PDF <i class="fa-regular fa-file-pdf"></i></button>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true,
+            floatPrecision: 16 // optional
+        });
+
+        const resume = document.getElementById('pdfContent');
+        const canvas = await html2canvas(resume, {ignoreElements: (element) => {
+                return element.id === 'pdfButton';
+            }, scale: 2 }); // Increase the scale for better quality
+        const imgData = canvas.toDataURL('image/png', 1.0); // Use PNG format with maximum quality
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+
+        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+        const newWidth = imgWidth * ratio;
+        const newHeight = imgHeight * ratio;
+
+        const x = (pageWidth - newWidth) / 2;
+        const y = (pageHeight - newHeight) / 2;
+
+        doc.addImage(imgData, 'PNG', x, y, newWidth, newHeight, undefined, 'FAST');
+        doc.save('resume.pdf');
+    }
+
+</script>
+</body>
+</html>
+
