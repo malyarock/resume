@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Resume - Ivan Malyarevich</title>
     <style>
         :root {
             --main-dark-color: rgba(46, 60, 78, 1);
             --main-dark-color-transparent-10: rgba(46, 60, 78, 0.1);
             --main-light-color: rgba(256, 256, 256, 1);
+            --spacing-small: .625rem;
+            --spacing-medium: .875rem;
+            --font-size-regular: .75rem;
+            --border-thin: 0.05rem;
         }
+
         @media (max-width: 38.75rem) {
             .contact-info {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
-            .primary-skills{
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-            .skill-item{
+
+            .skills__item {
                 text-align: center;
             }
-            .secondary-skills {
-                display: flex;
+
+            .skills__group.skills__group--primary,
+            .skills__group.skills__group--secondary {
                 width: 20rem;
-                flex-wrap: wrap; /* Позволяет элементам переходить на новую строку */
-                justify-content: center; /* Распределяет элементы равномерно */
+                display: flex;
+                flex-wrap: wrap;
             }
+
+            .skills__group.skills__group--primary {
+                justify-content: space-evenly;
+            }
+
+            .skills__group.skills__group--secondary {
+                justify-content: center;
+            }
+
         }
 
         body {
-            font-family: "Edu SA Beginner", cursive;
+            /* font-family: "Edu SA Beginner", cursive; */
+            font-family: "Instrument Serif", sans-serif;
             font-optical-sizing: auto;
-            font-weight: 300;
+            font-weight: 200;
             font-style: normal;
             color: var(--main-dark-color);
             line-height: 1.2;
@@ -50,46 +64,47 @@
             padding: 0;
         }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+            text-wrap: nowrap;
+        }
+
         .container {
             position: relative;
-            max-width:  46.25rem;
-            margin: 0 auto;
+            min-width: 30rem;
+            max-width: 46.25rem;
             border: 1px solid var(--main-dark-color);
         }
-        .page{
+
+        .page {
             padding: 1.5rem;
         }
 
         h1 {
             display: flex;
             justify-content: center;
-            font-size: 2.25rem;
+            font-size: 1.75rem;
             margin-bottom: .3125rem;
+            border-bottom: 1px solid var(--main-dark-color);
+            padding: .9375rem 0;
         }
 
         .contact-info {
-            display: flex;
-            justify-content: center;
-            font-size: .875rem;
-            margin-top: 1rem;
-            margin-bottom: .875rem;
-            border-bottom: 1px solid var(--main-dark-color);
-            padding-bottom: .9375rem;
+            text-align: center;
+            font-size: var(--font-size-regular);
         }
 
-        .section-title {
-            font-size: 1.25rem;
-            margin-top: .875rem;
-            margin-bottom: .9375rem;
+        .link_linkedin {
+            font-size: var(--font-size-regular);
+        }
+
+        section div[class$="__title"] {
+            font-size: 1rem;
             text-transform: uppercase;
             font-weight: bold;
-            border-bottom: .125rem solid var(--main-dark-color);
-            padding-bottom: .3125rem;
-        }
-
-        .job-title {
-            font-size: 1rem;
-            font-weight: bold;
+            text-align: center;
+            padding: var(--spacing-medium) 0;
         }
 
         .company {
@@ -97,51 +112,61 @@
             font-weight: bold;
         }
 
-        .date-location {
-            font-size: .875rem;
+        section div div span[class$="__date"] {
             color: var(--main-dark-color);
             float: right;
+            font-weight: bold;
         }
 
-        .job-description {
-            margin-top: .625rem;
-            margin-bottom: .875rem;
+        .experience__job-description {
+            padding-top: var(--spacing-small);
+            text-align: justify;
         }
 
-        .education, .skills {
-            margin-top: .625rem;
+        .experience__content,
+        .education__content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-medium);
         }
 
-        hr {
-            border: 0;
-            height: .0625rem;
-            background: var(--main-dark-color);
-            margin: .125rem 0;
+        .experience__company,
+        .educations__degree-title-level {
+            font-weight: bold;
         }
 
         .icon {
-            margin: 0 .3125rem;
+            padding: 0 .3125rem;
             color: var(--main-dark-color);
         }
 
-        .skills {
+        .skills__content {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            gap: .5rem;
         }
 
-        .skill-item {
-            margin-right: .625rem;
+        .skills__item {
+            padding-right: .225rem;
             display: inline-block;
         }
 
-        .secondary-skill {
-            font-size: 0.5rem;
-            margin-top: 0.5rem;
-            margin-left: .625rem;
+
+        .skills__group--primary {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
         }
+
+        .skills__group--secondary {
+            font-size: var(--font-size-regular);
+            text-align: center;
+        }
+
         #pdfButton {
-            font-size: 0.8rem;
+            font-size: .8rem;
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -161,159 +186,366 @@
             color: var(--main-dark-color);
         }
 
-        #pdfButton:active{
+        #pdfButton:active {
             background-color: var(--main-dark-color-transparent-10);
             border: .05rem solid var(--main-dark-color);
             color: var(--main-dark-color);
         }
 
+        #pdfButton i {
+            font-size: 1.5rem;
+        }
+
+
+        .link:hover i {
+            animation: fa-bounce 1s infinite;
+        }
+
+        @keyframes fa-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-.15rem);
+            }
+        }
+
+        .spinner {
+            color: var(--main-light-color);
+        }
+
+        .loader-overlay .fa-circle-down {
+            font-size: 2.5rem;
+            animation: fa-drop 1s infinite;
+        }
+
+        .loader-overlay .fa-folder {
+            font-size: 5rem;
+        }
+
+        @keyframes fa-drop {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(5.25rem);
+            }
+
+            60% {
+                transform: translateY(5.25rem);
+            }
+
+        }
+
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+
+        .loader-overlay.active {
+            visibility: visible;
+            pointer-events: all;
+        }
     </style>
 
 </head>
+
 <body>
 
-<div class="container" >
-    <div class="page" id="pdfContent">
-        <h1>Ivan Malyarevich</h1>
-        <div class="contact-info">
-            <span class="icon"><i class="fa-solid fa-map-location-dot fa-sm"></i></span>
-            Austin, TX, USA
-            <span class="icon"><i class="fa-regular fa-envelope fa-sm"></i></span>
-            ivanmalyarevich@gmail.com
-            <span class="icon"><i class="fa-solid fa-phone fa-sm"></i></span>
-            (512) 736-7618
-            <span class="icon"> <i class="fa-brands fa-linkedin fa-sm"></i></span>
-            linkedin.com/in/ivan-malyarevich
-        </div>
+    <div class="container">
+        <div class="page" id="pdfContent">
+            <a href="https://www.linkedin.com/in/ivan-malyarevich/" target="_blank" class="link link_linkedin">
+                <i class="icon fa-brands fa-linkedin fa-sm"></i>
+                linkedin.com/in/ivan-malyarevich
+            </a>
 
-        <div class="section-title">Experience</div>
+            <h1>Ivan Malyarevich</h1>
+            <div class="contact-info">
+                <a href="https://www.google.com/maps?q=2001+S.+Mopac+Expressway+%232325+Austin,+TX+78746"
+                    target="_blank" class="link">
+                    <i class="icon fa-solid fa-map-location-dot fa-sm"></i>
+                    2001 S. Mopac Expressway #2325 Austin, TX 78746
+                </a>
+                <a href="mailto:your-email@example.com" class="link">
+                    <i class="icon fa-regular fa-envelope fa-sm"></i>
+                    ivanmalyarevich@gmail.com
+                </a>
+                <a href="tel:+17373289072" class="link">
+                    <i class="icon fa-solid fa-phone fa-sm"></i>
+                    (737) 328-9072
+                </a>
+            </div>
 
-        <div class="job">
-            <div class="job-title">Software Engineer</div>
-            <div class="company">TBI Bank<span class="date-location">2021 – Present</span></div>
-            <div class="job-description">
-                <span> • Enhanced operational efficiency by 35% through the initiation of a new project using Angular, collaborating with both the development team and business stakeholders.</span>
-                <br>
-                <span> • Reduced user complaints by nearly half, achieving a 40% decrease by swiftly implementing essential changes in the ongoing project.</span>
-                <br>
-                <span> • Cut debugging time down to 75% of its previous length by conducting thorough code reviews, ensuring adherence to high-quality standards.</span>
-                <br>
-                <span> • Mentored a junior developer, accelerating the onboarding process by 50%, which resulted in a noticeable increase in team productivity and improved project delivery timelines by a third.</span>
-                <br>
-                <span> • Integrated critical components that led to a 20% boost in overall project performance.</span>
-            </div>
-        </div>
-        <div class="job">
-            <div class="job-title">Software Engineer</div>
-            <div class="company">State-Owned Enterprise<span class="date-location">2020 – 2021</span></div>
-            <div class="job-description">
-                <span> • Boosted client acquisition rates by a third, identifying and resolving barriers for new clients through collaboration with department heads.</span>
-                <br>
-                <span> • Designed an online application form, speeding up submissions by 25% and enabling a smoother user experience.</span>
-                <br>
-                <span> • Improved client satisfaction by 40% by enhancing accessibility and user experience.</span>
-                <br>
-                <span> • Migrated the educational center's database to a web application, resulting in a 50% increase in data management efficiency.</span>
-                <br>
-                <span> • Developed a user-friendly web interface that significantly decreased data retrieval times by two-thirds.</span>
-            </div>
-        </div>
-        <div class="job">
-            <div class="job-title">Computer Science Instructor</div>
-            <div class="company">Government Institution<span class="date-location">2019</span></div>
-            <div class="job-description">
-                <span> • Sparked a 70% increase in student interest in IT by integrating real-world examples and hands-on exercises, which improved class participation by 40%.</span>
-                <br>
-                <span> • Created personalized learning plans, enabling 90% of students with limited IT experience to excel in the course.</span>
-                <br>
-                <span> • Fostered inclusive learning for a small percentage of students with diverse abilities, ensuring adaptation of teaching methods that led to a more engaging classroom environment for everyone.</span>
-                <br>
-                <span> • Recognized for effective teaching, receiving 95% positive feedback from students and increasing course enrollment by a third.</span>
-            </div>
-        </div>
+            <section id="section-experience" class="experience">
+                <div class="experience__title">Experience</div>
+                <div class="experience__content">
+                    <div class="experience__job">
+                        <div class="experience__job-title">Software Engineer</div>
+                        <div class="experience__company">TBI Bank<span class="experience__date">2021 – 2024</span></div>
+                        <div class="experience__job-description">
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Enhanced operational efficiency by
+                                    35%</b>
+                                through the initiation of a new project using <b>Angular</b>, collaborating effectively
+                                with
+                                the
+                                development team and business stakeholders to align technical solutions with business
+                                goals.
+                                <br>
+                                <span>
+                                    <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Reduced user
+                                        complaints by nearly half, achieving a 40%</b> decrease by swiftly
+                                    implementing essential changes in the ongoing project.
+                                </span>
+                                <br>
+                                <span>
+                                    <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Cut debugging time
+                                        down to 75%</b> of its previous length by conducting thorough code
+                                    reviews, ensuring adherence to high-quality standards.
+                                </span>
+                                <br>
+                                <span>
+                                    <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Mentored a junior
+                                        developer</b>,
+                                    reducing the onboarding process by 50% and significantly improving team
+                                    productivity, which contributed to a <b>33% improvement in project delivery
+                                        timelines</b>.
+                                </span>
+                                <br>
+                                <span>
+                                    <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Integrated critical
+                                        components</b>
+                                    that
+                                    resulted in a <b>20% increase in overall project performance</b>, optimizing system
+                                    efficiency
+                                    and enhancing application speed.
+                                </span>
+                        </div>
+                    </div>
+                    <div class="experience__job">
+                        <div class="experience__job-title">Software Engineer</div>
+                        <div class="experience__company">State-Owned Enterprise<span class="experience__date">2020 –
+                                2021</span></div>
+                        <div class="experience__job-description">
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Boosted client acquisition rates
+                                    by
+                                    33%</b>
+                                by identifying and resolving key barriers for new clients through close collaboration
+                                with
+                                department heads, ensuring smoother onboarding processes.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Designed and implemented an online
+                                    application form</b>, accelerating submission rates by 25% and significantly
+                                improving
+                                the
+                                overall user experience for prospective clients.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Enhanced client satisfaction by
+                                    40%</b> by
+                                improving accessibility and usability of the organization's online platforms, leading to
+                                a
+                                more inclusive and seamless experience.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Migrated the educational center's
+                                    database</b> to a modern web application, achieving a <b>50% improvement in data
+                                    management
+                                    efficiency</b> and streamlining operations for staff.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Developed a user-friendly web
+                                    interface</b>,
+                                reducing data retrieval times by <b>67%</b> and enabling faster access to critical
+                                information for
+                                both staff and users.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="experience__job">
+                        <div class="experience__job-title">Computer Science Instructor</div>
+                        <div class="experience__company">Government Institution<span
+                                class="experience__date">2019</span>
+                        </div>
+                        <div class="experience__job-description">
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Increased student interest in IT
+                                    by
+                                    70%</b>
+                                by integrating real-world examples and hands-on exercises, resulting in a <b>40% boost
+                                    in
+                                    class
+                                    participation</b> and engagement.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Developed personalized learning
+                                    plans,
+                                    enabling 90% of students with limited IT experience</b> to excel and achieve
+                                proficiency
+                                in
+                                course objectives.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Adapted teaching methods</b> to
+                                foster
+                                inclusive learning environments, effectively engaging students with diverse abilities
+                                and
+                                ensuring equitable participation in classroom activities.
+                            </span>
+                            <br>
+                            <span>
+                                <i class="icon fa-solid fa-caret-right fa-2xs"></i><b>Received 95% positive feedback
+                                    from
+                                    students</b> for effective teaching methods, leading to a 33% increase in course
+                                enrollment over
+                                two semesters.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="section-title">Education</div>
-        <div class="education">
-            <div class="education-title">
-                <strong>Master's Degree</strong>
-            </div>
-            <div class="education-description">
-                Software Engineering · 2021
-            </div>
+            <section id="section-education">
+                <div class="education__title">Education</div>
+                <div class="education__content">
+                    <div class="education__degree">
+                        <div class="education__degree-title">
+                            <span class="educations__degree-title-level">Master's Degree</span> Software Engineering
+                            <span class="educations__date">2021</span>
+                        </div>
+                    </div>
+                    <div class="education__degree">
+                        <div class="education__degree-title">
+                            <span class="educations__degree-title-level">Master's Degree</span> Mechanical Engineering
+                            <span class="educations__date">2020</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-skills">
+                <div class="skills__title">Skills</div>
+                <div class="skills__content">
+                    <div class="skills__group skills__group--primary">
+                        <span class="skills__item">Angular</span>
+                        <span class="skills__item">TypeScript</span>
+                        <span class="skills__item">NodeJS</span>
+                        <span class="skills__item">Angular Material</span>
+                        <span class="skills__item">RESTful API</span>
+                        <span class="skills__item">MongoDB</span>
+                    </div>
+                    <div class="skills__group skills__group--secondary">
+                        <span class="skills__item">RxJS</span>
+                        <span class="skills__item">NgRx</span>
+                        <span class="skills__item">HTML</span>
+                        <span class="skills__item">CSS</span>
+                        <span class="skills__item">Unit Testing (Jasmine/Karma)</span>
+                        <span class="skills__item">Git</span>
+                        <span class="skills__item">CI/CD</span>
+                        <span class="skills__item">Docker</span>
+                        <span class="skills__item">MVVM</span>
+                        <span class="skills__item">MVC</span>
+                        <span class="skills__item">SOLID</span>
+                        <span class="skills__item">DRY</span>
+                        <span class="skills__item">UX/UI</span>
+                    </div>
+                </div>
+            </section>
+
+            <button id="pdfButton" onclick="generatePDF()"><i class="fa-regular fa-file-pdf"></i></button>
         </div>
-        <div class="education">
-            <div class="education-title">
-                <strong>Master's Degree</strong>
-            </div>
-            <div class="education-description">
-                Mechanical Engineering · 2020
-            </div>
-        </div>
-        <div class="section-title">Skills</div>
-        <div class="skills">
-            <div class="primary-skills">
-                <span class="skill-item">Angular</span>
-                <span class="skill-item">TypeScript</span>
-                <span class="skill-item">RxJS</span>
-                <span class="skill-item">Angular Material</span>
-                <span class="skill-item">RESTful APIs</span>
-            </div>
-            <div class="secondary-skills">
-                <span class="skill-item secondary-skill">NgRx</span>
-                <span class="skill-item secondary-skill">HTML</span>
-                <span class="skill-item secondary-skill">CSS</span>
-                <span class="skill-item secondary-skill">Unit Testing (Jasmine/Karma)</span>
-                <span class="skill-item secondary-skill">Git</span>
-                <span class="skill-item secondary-skill">CI/CD</span>
-                <span class="skill-item secondary-skill">Docker</span>
-                <span class="skill-item secondary-skill">MVVM</span>
-                <span class="skill-item secondary-skill">MVC</span>
-                <span class="skill-item secondary-skill">SOLID</span>
-                <span class="skill-item secondary-skill">DRY</span>
-                <span class="skill-item secondary-skill">UX/UI</span>
-            </div>
-        </div>
-        <button id="pdfButton" onclick="generatePDF()">PDF <i class="fa-regular fa-file-pdf"></i></button>
     </div>
-</div>
+    <div id="loaderOverlay" class="loader-overlay">
+        <i class="spinner fa-regular fa-circle-down"></i>
+        <br>
+        <i class="spinner fa-regular fa-folder fa-beat"></i>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
 
+        function resetAnimation(element) {
+            element.style.animation = 'none';
+            void element.offsetWidth;
+            element.style.animation = '';
+        }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-    async function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4',
-            putOnlyUsedFonts: true,
-            floatPrecision: 16 // optional
-        });
+        async function generatePDF() {
+            const loader = document.getElementById('loaderOverlay');
+            const spinnerCircleDown = document.querySelector('.spinner.fa-circle-down');
+            const spinnerFolder = document.querySelector('.spinner.fa-folder');
 
-        const resume = document.getElementById('pdfContent');
-        const canvas = await html2canvas(resume, {ignoreElements: (element) => {
-                return element.id === 'pdfButton';
-            }, scale: 2 }); // Increase the scale for better quality
-        const imgData = canvas.toDataURL('image/png', 1.0); // Use PNG format with maximum quality
+            resetAnimation(spinnerCircleDown);
+            resetAnimation(spinnerFolder);
+            loader.classList.add('active');
 
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                putOnlyUsedFonts: true,
+                floatPrecision: 16
+            });
+            const container = document.querySelector('.container');
+            const originalWidth = container.offsetWidth / 16;
+            container.style.width = '46.25rem';
+            const resume = document.getElementById('pdfContent');
+            const canvas = await html2canvas(resume, {
+                ignoreElements: (element) => {
+                    return element.id === 'pdfButton';
+                }, scale: 2
+            });
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
 
-        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-        const newWidth = imgWidth * ratio;
-        const newHeight = imgHeight * ratio;
+            const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+            const newWidth = imgWidth * ratio;
+            const newHeight = imgHeight * ratio;
 
-        const x = (pageWidth - newWidth) / 2;
-        const y = (pageHeight - newHeight) / 2;
+            const x = (pageWidth - newWidth) / 2;
+            const y = (pageHeight - newHeight) / 2;
 
-        doc.addImage(imgData, 'PNG', x, y, newWidth, newHeight, undefined, 'FAST');
-        doc.save('resume.pdf');
-    }
+            doc.addImage(imgData, 'PNG', x, y, newWidth, newHeight, undefined, 'FAST');
+            doc.save('resume.pdf');
 
-</script>
+            container.style.width = originalWidth + 'rem';
+
+            loader.classList.remove('active')
+        }
+    </script>
 </body>
-</html>
 
+</html>
